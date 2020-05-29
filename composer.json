@@ -1,6 +1,6 @@
 {
-    "name": "pestphp/pest-plugin-template",
-    "description": "My awesome plugin",
+    "name": "pestphp/pest-plugin-coverage",
+    "description": "The Pest Coverage Plugin",
     "keywords": [
         "php",
         "framework",
@@ -8,16 +8,18 @@
         "unit",
         "test",
         "testing",
-        "plugin"
+        "plugin",
+        "coverage"
     ],
     "license": "MIT",
     "require": {
         "php": "^7.3",
-        "pestphp/pest": "^0.1"
+        "pestphp/pest": "dev-master",
+        "pestphp/pest-plugin": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Pest\\PluginName\\": "src/"
+            "Pest\\PluginCoverage\\": "src/"
         }
     },
     "require-dev": {
@@ -34,6 +36,13 @@
     "config": {
         "sort-packages": true,
         "preferred-install": "dist"
+    },
+    "extra": {
+        "pest": {
+            "plugins": [
+                "Pest\\PluginCoverage\\Plugin"
+            ]
+        }
     },
     "scripts": {
         "lint": "rector process src && php-cs-fixer fix -v",
