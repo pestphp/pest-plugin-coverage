@@ -42,7 +42,17 @@ final class Plugin implements AddsOutput, HandlesArguments
      */
     public $coverageMin = 0.0;
 
-    public function handleArguments(TestSuite $testSuite, array $originals): array
+    /**
+     * @var OutputInterface
+     */
+    private $output;
+
+    public function __construct(OutputInterface $output)
+    {
+        $this->output = $output;
+    }
+
+    public function handleArguments(array $originals): array
     {
         $arguments = array_merge([''], array_values(array_filter($originals, function ($original): bool {
             foreach ([self::COVERAGE_OPTION, self::MIN_OPTION] as $option) {
@@ -82,22 +92,22 @@ final class Plugin implements AddsOutput, HandlesArguments
     /**
      * Allows to add custom output after the test suite was executed.
      */
-    public function addOutput(TestSuite $testSuite, OutputInterface $output, int $result): int
+    public function addOutput(int $result): int
     {
         if ($result === 0 && $this->coverage) {
             if (!Coverage::isAvailable()) {
-                $output->writeln(
+                $this->output->writeln(
                     "\n  <fg=white;bg=red;options=bold> ERROR </> No code coverage driver is available.</>",
                 );
                 exit(1);
             }
 
-            $coverage = Coverage::report($output);
+            $coverage = Coverage::report($this->output);
 
             $result = (int) ($coverage < $this->coverageMin);
 
             if ($result === 1) {
-                $output->writeln(sprintf(
+                $this->output->writeln(sprintf(
                     "\n  <fg=white;bg=red;options=bold> FAIL </> Code coverage below expected:<fg=red;options=bold> %s %%</>. Minimum:<fg=white;options=bold> %s %%</>.",
                     number_format($coverage, 1),
                     number_format($this->coverageMin, 1)
