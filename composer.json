@@ -14,8 +14,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-        "pestphp/pest": "dev-master",
-        "pestphp/pest-plugin": "dev-master"
+        "pestphp/pest-plugin": "^0.2"
+    },
+    "conflict": {
+        "pestphp/pest": "<0.2"
     },
     "autoload": {
         "psr-4": {
@@ -23,6 +25,7 @@
         }
     },
     "require-dev": {
+        "pestphp/pest": "^0.2",
         "ergebnis/phpstan-rules": "^0.14.4",
         "friendsofphp/php-cs-fixer": "^2.16.3",
         "phpstan/phpstan": "^0.12.25",
