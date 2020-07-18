@@ -11,7 +11,7 @@ namespace Pest\PluginCoverage;
   use Symfony\Component\Console\Output\OutputInterface;
   use Symfony\Component\Console\Terminal;
 
-  /**
+ /**
   * @internal
   */
  final class Coverage
@@ -147,11 +147,8 @@ namespace Pest\PluginCoverage;
 
              if (array_key_exists($lastKey, $array) && strpos($array[$lastKey], '..') !== false) {
                  [$from]          = explode('..', $array[$lastKey]);
-                 if ($line > $from) {
-                     $array[$lastKey] = sprintf('%s..%s', $from, $line);
-                 } else {
-                     $array[$lastKey] = sprintf('%s..%s', $line, $from);
-                 }
+                 $array[$lastKey] = $line > $from ? sprintf('%s..%s', $from, $line) : sprintf('%s..%s', $line, $from);
+
                  return $array;
              }
 
