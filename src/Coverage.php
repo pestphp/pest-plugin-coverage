@@ -118,7 +118,7 @@ namespace Pest\PluginCoverage;
       * Generates an array of missing coverage on the following format:.
       *
       * ```
-      * ['11', '20..25', '50', '60...80'];
+      * ['11', '20..25', '50', '60..80'];
       * ```
       *
       * @param File $file
@@ -147,8 +147,11 @@ namespace Pest\PluginCoverage;
 
              if (array_key_exists($lastKey, $array) && strpos($array[$lastKey], '..') !== false) {
                  [$from]          = explode('..', $array[$lastKey]);
-                 $array[$lastKey] = sprintf('%s..%s', $from, $line);
-
+                 if ($line > $from) {
+                     $array[$lastKey] = sprintf('%s..%s', $from, $line);
+                 } else {
+                     $array[$lastKey] = sprintf('%s..%s', $line, $from);
+                 }
                  return $array;
              }
 
