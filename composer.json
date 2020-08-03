@@ -14,7 +14,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
-        "pestphp/pest-plugin": "^0.3"
+        "pestphp/pest-plugin": "^0.3",
+        "sebastian/environment": "^5.1.2"
     },
     "conflict": {
         "pestphp/pest": "<0.3"
