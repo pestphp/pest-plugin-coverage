@@ -1,6 +1,6 @@
 <?php
 
-  declare(strict_types=1);
+declare(strict_types=1);
 
 namespace Pest\PluginCoverage;
 
@@ -55,12 +55,12 @@ namespace Pest\PluginCoverage;
 
          $dottedLineLength = $totalWidth <= 70 ? $totalWidth : 70;
 
-         $totalCoverage = $codeCoverage->getReport()->getLineExecutedPercent();
+         $totalCoverage = $codeCoverage->getReport()->percentageOfExecutedLines();
 
          $output->writeln(
              sprintf(
                  '  <fg=white;options=bold>Cov:    </><fg=default>%s</>',
-                 $totalCoverage
+                 $totalCoverage->asString()
              )
          );
 
@@ -73,8 +73,8 @@ namespace Pest\PluginCoverage;
              if (!$file instanceof File) {
                  continue;
              }
-             $dirname  = dirname($file->getId());
-             $basename = basename($file->getId(), '.php');
+             $dirname  = dirname($file->id());
+             $basename = basename($file->id(), '.php');
 
              $name = $dirname === '.' ? $basename : implode(DIRECTORY_SEPARATOR, [
                  $dirname,
@@ -87,14 +87,14 @@ namespace Pest\PluginCoverage;
 
              $linesExecutedTakenSize = 0;
 
-             if ($file->getLineExecutedPercent() != '0.00%') {
+             if ($file->percentageOfExecutedLines() != '0.00%') {
                  $linesExecutedTakenSize = strlen($uncoveredLines = trim(implode(', ', self::getMissingCoverage($file)))) + 1;
                  $name .= sprintf(' <fg=red>%s</>', $uncoveredLines);
              }
 
-             $percentage = $file->getNumExecutableLines() === 0
+             $percentage = $file->numberOfExecutableLines() === 0
                  ? '100.0'
-                 : number_format((float) $file->getLineExecutedPercent(), 1, '.', '');
+                 : number_format($file->percentageOfExecutedLines()->asFloat(), 1, '.', '');
 
              $takenSize = strlen($rawName . $percentage) + 4 + $linesExecutedTakenSize; // adding 3 space and percent sign
 
@@ -111,7 +111,7 @@ namespace Pest\PluginCoverage;
              ));
          }
 
-         return (float) $totalCoverage;
+         return (float) $totalCoverage->asFloat();
      }
 
      /**
@@ -158,7 +158,7 @@ namespace Pest\PluginCoverage;
          };
 
          $array = [];
-         foreach (array_filter($file->getCoverageData(), 'is_array') as $line => $tests) {
+         foreach (array_filter($file->lineCoverageData(), 'is_array') as $line => $tests) {
              $array = $eachLine($array, $tests, $line);
          }
 
