@@ -88,7 +88,7 @@ namespace Pest\PluginCoverage;
 
              $linesExecutedTakenSize = 0;
 
-             if ($file->percentageOfExecutedLines() != '0.00%') {
+             if ($file->percentageOfExecutedLines()->asString() != '0.00%') {
                  $linesExecutedTakenSize = strlen($uncoveredLines = trim(implode(', ', self::getMissingCoverage($file)))) + 1;
                  $name .= sprintf(' <fg=red>%s</>', $uncoveredLines);
              }
