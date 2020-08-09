@@ -4,9 +4,9 @@
 
   it('generates coverage based on file input', function () {
       expect(Coverage::getMissingCoverage(new class() {
-         public function lineCoverageData(): array
-         {
-             return [
+          public function lineCoverageData(): array
+          {
+              return [
                  1   => ['foo'],
                  2   => ['bar'],
                  4   => [],
@@ -17,8 +17,8 @@
                  101 => ['foo'],
                  102 => [],
              ];
-         }
-     }))->toEqual([
+          }
+      }))->toEqual([
         '4..6', '102',
     ]);
   });

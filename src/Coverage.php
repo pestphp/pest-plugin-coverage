@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Pest\PluginCoverage;
 
   use Pest\Exceptions\ShouldNotHappen;
+  use SebastianBergmann\CodeCoverage\CodeCoverage;
   use SebastianBergmann\CodeCoverage\Node\Directory;
   use SebastianBergmann\CodeCoverage\Node\File;
   use SebastianBergmann\Environment\Runtime;
@@ -47,7 +48,7 @@ namespace Pest\PluginCoverage;
              throw ShouldNotHappen::fromMessage(sprintf('Coverage not found in path: %s.', $reportPath));
          }
 
-         /** @var \SebastianBergmann\CodeCoverage\CodeCoverage $codeCoverage */
+         /** @var CodeCoverage $codeCoverage */
          $codeCoverage = require $reportPath;
          unlink($reportPath);
 
@@ -111,7 +112,7 @@ namespace Pest\PluginCoverage;
              ));
          }
 
-         return (float) $totalCoverage->asFloat();
+         return $totalCoverage->asFloat();
      }
 
      /**
