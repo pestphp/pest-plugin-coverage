@@ -3,10 +3,8 @@
   use Pest\PluginCoverage\Coverage;
 
   it('generates coverage based on file input', function () {
-      assertEquals([
-         '4..6', '102',
-     ], Coverage::getMissingCoverage(new class() {
-         public function getCoverageData(): array
+      expect(Coverage::getMissingCoverage(new class() {
+         public function lineCoverageData(): array
          {
              return [
                  1   => ['foo'],
@@ -20,5 +18,7 @@
                  102 => [],
              ];
          }
-     }));
+     }))->toEqual([
+        '4..6', '102',
+    ]);
   });
