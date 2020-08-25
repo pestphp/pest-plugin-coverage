@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [v0.2.1 (2020-07-18)](https://github.com/pestphp/pest/compare/v0.2.0...v0.2.1)
+## [v0.3.0 (2020-08-25)](https://github.com/pestphp/pest-plugin-coverage/compare/v0.2.1...v0.3.0)
+### Added
+- Support to Pest 0.3
+
+## [v0.2.1 (2020-07-18)](https://github.com/pestphp/pest-plugin-coverage/compare/v0.2.0...v0.2.1)
 ### Fixed
 - Line numbers order ([#5](https://github.com/pestphp/pest-plugin-coverage/pull/5))
 
